@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "134960009847",
+    "firebase_url": "https://huddleme-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "huddleme",
+    "storage_bucket": "huddleme.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134960009847:android:6738219d9427b03bc5ac72",
+        "android_client_info": {
+          "package_name": "com.huddleme.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134960009847-dm13eqdgr1alie1us96hbpenv394cmjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgIh_ZzHO2yRjx-QVSj4jlxRTAzsvi3m8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134960009847-48sol2fcl46t8advsbsnelkoo1h4rbg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134960009847:android:3b2dd35b0465ec0bc5ac72",
+        "android_client_info": {
+          "package_name": "com.huddlemenative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134960009847-dm13eqdgr1alie1us96hbpenv394cmjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgIh_ZzHO2yRjx-QVSj4jlxRTAzsvi3m8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134960009847-48sol2fcl46t8advsbsnelkoo1h4rbg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134960009847:android:90ea9832692bee84c5ac72",
+        "android_client_info": {
+          "package_name": "com.nearaura.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134960009847-dm13eqdgr1alie1us96hbpenv394cmjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgIh_ZzHO2yRjx-QVSj4jlxRTAzsvi3m8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134960009847-48sol2fcl46t8advsbsnelkoo1h4rbg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134960009847:android:fb261bffba09a021c5ac72",
+        "android_client_info": {
+          "package_name": "com.nearaura.app.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134960009847-dm13eqdgr1alie1us96hbpenv394cmjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgIh_ZzHO2yRjx-QVSj4jlxRTAzsvi3m8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134960009847-48sol2fcl46t8advsbsnelkoo1h4rbg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

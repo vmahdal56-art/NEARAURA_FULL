@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    compileSdk 33
+    defaultConfig {
+        applicationId "com.nearaura.app"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0-London-Sovereign"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // FIREBASE DNA
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+
+    // IMAGE ENGINE (For the Orchard)
+    implementation 'github.com.bumptech.glide:glide:4.15.1'
+    annotationProcessor 'github.com.bumptech.glide:compiler:4.15.1'
+}

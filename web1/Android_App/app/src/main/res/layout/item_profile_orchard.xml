@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="#1A1D23"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/auraPulse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/aura_gradient_border"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_user" />
+
+        <TextView
+            android:id="@+id/sovereignBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:background="#D4AF37"
+            android:padding="4dp"
+            android:text="S"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#99000000"
+            android:orientation="vertical"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

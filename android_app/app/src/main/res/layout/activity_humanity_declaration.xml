@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humanity Declaration"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="I hereby declare that I am using NearAura with the sincere intention of forming genuine connections. I confirm that I am of sound mind and body, and I will interact with others on this platform with honesty and respect. I understand that any violation of this covenant may result in the permanent termination of my account."
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/humanity_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="I agree to the Humanity Declaration" />
+
+        <Button
+            android:id="@+id/continue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Continue"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signature_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:alpha="0">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:src="@drawable/signature" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Founder of The Orchard"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

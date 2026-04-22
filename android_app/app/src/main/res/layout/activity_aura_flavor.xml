@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="@color/sovereign_background"
+    tools:context=".ui.AuraFlavorActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Aura Flavor"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Let others know what you\'re here for."
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- Pineapple Option -->
+    <CheckBox
+        android:id="@+id/checkbox_pineapple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Pineapple (Serious)"/>
+
+    <!-- Banana Option -->
+    <CheckBox
+        android:id="@+id/checkbox_banana"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Banana (Casual)"/>
+
+    <!-- Peach Option -->
+    <CheckBox
+        android:id="@+id/checkbox_peach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Peach (Casual)"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/button_save_flavor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/sovereign_orange_500"
+        android:text="Save Flavor"/>
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "huddleme"
+  },
+  "targets": {
+    "huddleme": {
+      "hosting": {
+        "staging": [
+          "huddleme-staging"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

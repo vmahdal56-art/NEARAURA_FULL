@@ -1,0 +1,1 @@
+Define the 40x Mega Boost multiplier (1790 CZK) and the 15-second "Emotion Presentation" video slot.

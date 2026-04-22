@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/black">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Director’s Journey"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Eight years ago, a bridge was built not of steel and stone, but of love and code—a digital path from London to Tunis. This connection, born from a vision of a world without borders for the heart, sparked the creation of NearAura. It is the story of a family, a testament to the enduring power of love in the digital age. A story that started with two people and now embraces millions. This is the Humanity API that proves the app works."
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Family First, the World After."
+        android.R.attr.elegantTextHeight="true"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+</LinearLayout>

@@ -1,0 +1,1 @@
+export const generateAuditId = (ts: number): string => ts.toString(36).toUpperCase().slice(-6);

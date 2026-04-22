@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background-color: #020405;
+  color: #F8F9FA;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* 🔱 SOVEREIGN TYPOGRAPHY CRITERIA */
+h1, h2, h3, h4 {
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-style: italic;
+  line-height: 0.85;
+}
+
+/* Scrollbar Reconstruction */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020405;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f97316; /* Oxidized Orange */
+}
+
+/* Selection Integrity */
+::selection {
+  background: #f97316;
+  color: #ffffff;
+}
+
+/* 🔱 BRUTALIST COMPONENTS */
+@layer components {
+  .btn-sovereign {
+    @apply border-2 border-white px-8 py-4 uppercase font-black text-xs tracking-widest transition-all duration-500 hover:bg-white hover:text-black;
+  }
+  
+  .radar-container {
+    @apply relative aspect-square border-2 border-white/5 rounded-full overflow-hidden bg-black/40;
+  }
+}
+
+/* Grid Background Artifact */
+.bg-grid-aura {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}

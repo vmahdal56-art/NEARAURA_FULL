@@ -1,0 +1,22 @@
+# Web plast
+node_modules/
+.next/
+out/
+build/
+
+# Android plast
+.gradle/
+**/build/
+*.apk
+local.properties
+.idea/
+
+# Systémový prach
+.DS_Store
+.idx/
+*.txt
+*.zip
+_ARCHIVE_CHAOS/
+appbkp070426/
+webbackup130226/
+webbkp070426/

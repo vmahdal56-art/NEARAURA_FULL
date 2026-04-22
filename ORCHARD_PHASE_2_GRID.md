@@ -1,0 +1,1 @@
+Define the 8-Profile Grid UI, Rainbow Aura shaders, and the Near/Far world toggle.

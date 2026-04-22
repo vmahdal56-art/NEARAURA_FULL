@@ -1,0 +1,17 @@
+import React from 'react';
+import Header from './components/Header';
+import Manifesto from './components/Manifesto';
+import { BrowserRouter } from 'react-router-dom';
+
+export default function App() { 
+  return ( 
+    <BrowserRouter>
+      <div className="min-h-screen w-full bg-black text-white">
+        <Header />
+        <main>
+          <Manifesto />
+        </main>
+      </div>
+    </BrowserRouter> 
+  ); 
+}

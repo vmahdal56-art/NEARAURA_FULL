@@ -1,0 +1,1 @@
+import React from 'react'; import { setLanguage } from '../utils/i18n'; export const LanguagePicker = () => ( <div className="fixed bottom-4 right-4 flex gap-2 bg-black border border-zinc-800 p-2 z-50"> {['en', 'cz'].map(l => ( <button key={l} onClick={() => setLanguage(l)} className="text-[10px] text-zinc-500 hover:text-white uppercase px-2 py-1">{l}</button> ))} </div> );

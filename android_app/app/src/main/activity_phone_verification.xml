@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".ui.PhoneVerificationActivity">
+
+    <!-- App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toTopOf="@id/bottom_container">
+
+        <!-- Instruction Text -->
+        <TextView
+            android:id="@+id/text_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your mobile number to receive a verification code."
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"
+            android:textAlignment="center"
+            android:layout_marginBottom="40dp"
+            android:lineSpacingExtra="4dp" />
+
+        <!-- Phone Number Input Group -->
+        <LinearLayout
+            android:id="@+id/phone_number_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_input_border"
+            android:padding="4dp">
+
+            <!-- Country Code Picker -->
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/country_code_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_defaultNameCode="US"
+                app:ccp_textGravity="CENTER"
+                app:ccp_showFlag="true"
+                app:ccp_showNameCode="false"
+                app:ccp_contentColor="@color/text_primary"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp" />
+
+            <!-- Phone Number Input -->
+            <EditText
+                android:id="@+id/phone_number_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:background="@android:color/transparent"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:maxLength="15"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+        <!-- OTP Input Group (Hidden initially) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/otp_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/text_instruction"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/colorPrimary"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/otp_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Verification Code (6 digits)"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textAlignment="center"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <!-- Bottom Action Button -->
+    <LinearLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/button_action"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Send Code"
+            android:textSize="18sp"
+            android:padding="14dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NearAura</string>
+    <string name="back_button_description">Back</string>
+    <!-- General -->
+    <string name="next_button">Next</string>
+    <string name="content_description_app_logo">NearAura App Logo</string>
+
+    <!-- Login Screen -->
+    <string name="login_terms_text">By signing up, you agree to our Terms of Service and Privacy Policy.</string>
+    <string name="welcome_to_app">Welcome to %1$s</string>
+
+    <!-- Facebook Login -->
+    <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
+    <string name="facebook_client_token">YOUR_FACEBOOK_CLIENT_TOKEN</string> <!-- ADD YOUR CLIENT TOKEN HERE -->
+    <string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_APP_ID</string>
+
+    <!-- Gender Screen -->
+    <string name="gender_identity_title">I am a...</string>
+    <string name="gender_identity_instruction">This is how you will appear on NearAura.</string>
+    <string name="gender_male">Man</string>
+    <string name="gender_female">Woman</string>
+    <string name="gender_more_options">More Options</string>
+    <string name="show_me_title">Show me...</string>
+    <string name="show_me_instruction">Who would you like to see in your discovery feed?</string>
+    <string name="show_me_men">Men</string>
+    <string name="show_me_women">Women</string>
+    <string name="show_me_everyone">Everyone</string>
+
+</resources>

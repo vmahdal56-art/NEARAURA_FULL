@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="32dp"
+    tools:context=".ui.BioActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_primary" />
+
+    <!-- 1. Title -->
+    <TextView
+        android:id="@+id/title_bio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Tell us about yourself"
+        android:textColor="@color/text_primary"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/privacy_shield_bio"/>
+
+    <ImageView
+        android:id="@+id/privacy_shield_bio"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_shield"
+        app:tint="@android:color/holo_blue_dark"
+        app:layout_constraintTop_toTopOf="@+id/title_bio"
+        app:layout_constraintBottom_toBottomOf="@+id/title_bio"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 2. Instruction Text -->
+    <TextView
+        android:id="@+id/instruction_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Write a short biography to make your profile stand out."
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/title_bio" />
+
+    <!-- 3. Bio Input Field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_bio"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:hintTextColor="@color/colorPrimary"
+        app:counterEnabled="true"
+        app:counterMaxLength="500"
+        app:layout_constraintTop_toBottomOf="@id/instruction_bio">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="My Bio..."
+            android:gravity="top"
+            android:inputType="textMultiLine|textCapSentences"
+            android:lines="6"
+            android:maxLength="500"
+            android:maxLines="8"
+            android:scrollbars="vertical"
+            android:textSize="18sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- 4. Minimum Character Warning (Hidden initially) -->
+    <TextView
+        android:id="@+id/text_min_chars_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Minimum 50 characters required."
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_bio" />
+
+
+    <!-- 5. Action Button (Next) -->
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/next_button"
+        android:textSize="18sp"
+        android:padding="14dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:enabled="false"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

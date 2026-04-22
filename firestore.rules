@@ -1,0 +1,69 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ----------------------------------------------------------------------
+    // 🛠️ NÁŘADÍ (POMOCNÉ FUNKCE)
+    // ----------------------------------------------------------------------
+    
+    // Zjistí, jestli má týpek vůbec klíče (je přihlášený)
+    function isAuthed() {
+      return request.auth != null;
+    }
+    
+    // Zjistí, jestli se hrabe ve svých vlastních věcech
+    function isOwner(userId) {
+      return isAuthed() && request.auth.uid == userId;
+    }
+    
+    // Zjistí, jestli je to tvůj ředitelský klíč
+    function isAdmin() {
+      return isAuthed() && request.auth.token.admin == true;
+    }
+
+    // ----------------------------------------------------------------------
+    // 🧱 HLAVNÍ TREZOR
+    // ----------------------------------------------------------------------
+
+    // 1. UŽIVATELSKÉ PROFILY (/users)
+    match /users/{userId} {
+      // Číst může jen majitel (nebo admin). Ostatní do toho nemají co čumět.
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // ZÁPIS Z ULICE ZAKÁZÁN. Klient musí zavolat Cloud Function.
+      allow write: if false; 
+    }
+
+    // 2. VEŘEJNÝ OBSAH (Meetupy, Broadcasty - z tvé MainActivity)
+    match /meetups/{document=**} {
+      // Číst mohou všichni s platnou občankou (přihlášení)
+      allow read: if isAuthed();
+      // Zápis opět jen přes motor (Functions) nebo admin
+      allow write: if isAdmin(); 
+    }
+
+    match /broadcasts/{document=**} {
+      allow read: if isAuthed();
+      allow write: if isAdmin();
+    }
+
+    // 3. SOUKROMÝ OBSAH (Chaty)
+    match /chats/{chatId} {
+      // Tady musíš kontrolovat, jestli je UID uživatele v poli účastníků
+      // Předpoklad struktury: participants: ['uid1', 'uid2']
+      allow read: if isAuthed() && (request.auth.uid in resource.data.participants);
+      
+      // Přidání zprávy atd. jen přes Functions
+      allow write: if false;
+    }
+
+    // ----------------------------------------------------------------------
+    // ⛔ JISTIČ (DEFAULT DENY)
+    // Cokoliv, co není výslovně povoleno nahoře, narazí na betonovou zeď.
+    // ----------------------------------------------------------------------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

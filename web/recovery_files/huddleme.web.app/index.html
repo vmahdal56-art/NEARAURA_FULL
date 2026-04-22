@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NearAura | The Orchard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-gradient { background: linear-gradient(90deg, #22D3EE, #A855F7, #F97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gold-initials { color: #D4AF37; letter-spacing: 1.2em; font-weight: 900; }
+        .footer-link { display: block; margin-bottom: 10px; color: #64748B; text-transform: uppercase; font-size: 10px; font-weight: 900; letter-spacing: 0.2em; text-decoration: none; }
+        .footer-link:hover { color: white; }
+    </style>
+</head>
+<body class="bg-[#0B0D11] text-white font-sans">
+    <nav class="fixed top-0 w-full bg-[#0B0D11]/95 backdrop-blur-xl border-b border-white/5 z-50 px-10 py-6 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-4">
+            <svg viewBox="0 0 100 100" class="w-12 h-12">
+                <circle cx="50" cy="50" r="38" stroke="url(#g)" stroke-width="3" fill="none"/>
+                <text x="50" y="62" text-anchor="middle" fill="url(#g)" font-family="sans-serif" font-weight="900" font-size="38">N</text>
+                <circle cx="50" cy="12" r="3" fill="#22D3EE"/><circle cx="88" cy="50" r="3" fill="#F97316"/><circle cx="12" cy="50" r="3" fill="#22D3EE"/><circle cx="50" cy="88" r="4" fill="#A855F7"/>
+                <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#22D3EE"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#F97316"/></linearGradient></defs>
+            </svg>
+            <span class="text-xl font-black italic tracking-tighter uppercase hero-gradient">nearaura.com</span>
+        </a>
+        <div class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">
+            <a href="https://huddleme.web.app/content/waitlist.html" class="hover:text-white">Waitlist</a>
+            <a href="https://huddleme.web.app/content/referrals.html" class="hover:text-white">Referrals</a>
+            <a href="https://huddleme.web.app/content/pricing.html" class="hover:text-orange-500">Pricing</a>
+            <a href="https://huddleme.web.app/content/faq.html" class="hover:text-white">FAQ</a>
+        </div>
+    </nav>
+
+    <main class="pt-44 pb-20 px-6 max-w-7xl mx-auto text-center">
+        <h1 class="text-[11vw] font-black italic leading-[0.85] uppercase mb-16 hero-gradient tracking-tighter">THE END OF <br> LONELY <br> SWIPING.</h1>
+        <div class="flex flex-col md:flex-row justify-center gap-6 mb-32">
+            <div class="bg-gradient-to-r from-cyan-500 to-blue-600 px-14 py-5 rounded-full text-xs font-black uppercase italic tracking-widest cursor-pointer">Get Android App</div>
+            <div class="bg-gradient-to-r from-orange-500 to-rose-600 px-14 py-5 rounded-full text-xs font-black uppercase italic tracking-widest cursor-pointer">Get iOS App</div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-16 text-left border-t border-white/5 pt-20 max-w-4xl mx-auto">
+            <p class="text-slate-400 italic text-lg leading-relaxed"><strong class="text-rose-500 block mb-2 uppercase">The Supermarket</strong> Current apps treat you like products in a trolley. Disposable. Swipable. No skin in the game.</p>
+            <p class="text-slate-400 italic text-lg leading-relaxed"><strong class="text-cyan-400 block mb-2 uppercase">The Orchard</strong> We use the 48-Hour Intent Vault to lock your Aura. Real-time sync, real-world integrity.</p>
+        </div>
+    </main>
+
+    <footer class="bg-black py-32 px-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 mb-20 text-left">
+            <div><a href="content/orchard.html" class="footer-link">The Orchard</a><a href="https://huddleme.web.app/content/director.html" class="footer-link">Director Say</a><a href="content/vibe.html" class="footer-link">Vibe Check</a><a href="https://huddleme.web.app/content/nearworld.html" class="footer-link">NearWorld</a></div>
+            <div><a href="https://huddleme.web.app/content/waitlist.html" class="footer-link">Waitlist</a><a href="https://huddleme.web.app/content/referrals.html" class="footer-link">Referrals</a><a href="https://huddleme.web.app/content/faq.html" class="footer-link">FAQ</a><a href="https://huddleme.web.app/content/pricing.html" class="footer-link">Pricing</a></div>
+            <div><a href="https://huddleme.web.app/content/terms.html" class="footer-link">Terms & GDPR</a><a href="https://huddleme.web.app/content/conduct.html" class="footer-link">Conduct</a><a href="https://huddleme.web.app/content/legacy.html" class="footer-link">Legacy</a><a href="https://huddleme.web.app/content/sovereign.html" class="footer-link">Sovereign</a></div>
+            <div><a href="https://huddleme.web.app/content/charity.html" class="footer-link text-rose-500">Charity Vault</a><a href="https://huddleme.web.app/content/systems.html" class="footer-link">Systems</a></div>
+        </div>
+        <div class="text-center pt-10 border-t border-white/5"><div class="gold-initials text-sm uppercase">JV JM PM LA PM LH YM VM</div></div>
+    </footer>
+</body>
+</html>

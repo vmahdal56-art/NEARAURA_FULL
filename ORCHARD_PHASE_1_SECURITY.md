@@ -1,0 +1,1 @@
+Define the 48-Hour Intent Vault and the Integrity Guardrail (Pineapple vs. Banana/Peach prohibition).

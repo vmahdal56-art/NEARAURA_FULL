@@ -1,0 +1,91 @@
+plugins {
+    id("com.android.application")
+    id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.android") // Čistý zapojení bez verze!
+}
+
+android {
+    namespace = "com.nearaura.app"
+    compileSdk = 36 // Poctivá stabilní ocel
+    
+    defaultConfig {
+        applicationId = "com.nearaura.app"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+        multiDexEnabled = true
+    }
+
+    buildFeatures {
+        buildConfig = true
+        dataBinding = true
+        viewBinding = true
+    }
+
+    flavorDimensions += "version"
+
+    productFlavors {
+        create("demo") {
+            dimension = "version"
+            versionNameSuffix = "-DEMO"
+            buildConfigField("boolean", "IS_DEMO_MODE", "true")
+        }
+        create("full") {
+            dimension = "version"
+            buildConfigField("boolean", "IS_DEMO_MODE", "false")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+dependencies {
+    // 🏗️ HLAVNÍ NOSNÍK (BoM - jedna verze vládne všem)
+    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+
+    // 🔥 FIREBASE ARZENÁL (Bez zbytečnýho -ktx plastu)
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-functions")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
+    
+    // GeoFire pro radar
+    implementation("com.firebase:geofire-android-common:3.2.0")
+
+    // --- 🔱 UI A KONSTRUKCE ---
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("com.hbb20:ccp:2.7.3") 
+    implementation("de.hdodenhof:circleimageview:3.1.0") 
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // --- 🔱 BEZPEČNOST A ŠIFRY (Mahdal Metal Standard) ---
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.facebook.android:facebook-login:16.2.0")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("org.whispersystems:signal-protocol-android:2.8.1")
+    implementation("org.signal:libsignal-client:0.32.1") 
+
+    // --- 🔱 ZBYTEK MAŠINY ---
+    implementation("com.android.billingclient:billing-ktx:6.1.0")
+    implementation("com.google.dagger:hilt-android:2.48")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+    implementation("com.google.mlkit:face-detection:16.1.5")
+}
