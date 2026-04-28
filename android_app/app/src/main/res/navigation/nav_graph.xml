@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_discovery">
+
+    <fragment
+        android:id="@+id/navigation_discovery"
+        android:name="com.nearaura.app.ui.DiscoveryFragment"
+        android:label="Discovery"
+        tools:layout="@layout/fragment_discovery" />
+
+    <fragment
+        android:id="@+id/navigation_meetups"
+        android:name="com.nearaura.app.ui.MeetupsFragment"
+        android:label="Meetups"
+        tools:layout="@layout/fragment_meetups" />
+
+    <fragment
+        android:id="@+id/navigation_broadcasts"
+        android:name="com.nearaura.app.ui.BroadcastsFragment"
+        android:label="Broadcasts"
+        tools:layout="@layout/fragment_broadcasts" />
+
+    <fragment
+        android:id="@+id/navigation_chats"
+        android:name="com.nearaura.app.ui.ChatsFragment"
+        android:label="Chats"
+        tools:layout="@layout/fragment_chats" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.nearaura.app.ui.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

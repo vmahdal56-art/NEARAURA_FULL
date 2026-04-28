@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
+        'aura-bg': '#0B0D11',
         'aura-cyan': '#22D3EE',
+        'aura-purple': '#A855F7',
         'aura-orange': '#F97316',
       },
       animation: {

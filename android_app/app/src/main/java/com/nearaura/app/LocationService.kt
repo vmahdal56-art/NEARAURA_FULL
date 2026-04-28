@@ -1,5 +1,5 @@
 package com.nearaura.app
-
+import com.nearaura.app.ui.MainActivity
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -58,8 +58,8 @@ class LocationService : Service() {
         val data = hashMapOf(
             "latitude" to location.latitude,
             "longitude" to location.longitude,
-            "hardwareId" to MainActivity.getHardwareId(this),
-            "screenTime" to MainActivity.getDailyScreenTime(this)
+// ✂️ MAHDAL METAL: Odříznuto (Nová navigace) ->             "hardwareId" to MainActivity.getHardwareId(this),
+// ✂️ MAHDAL METAL: Odříznuto (Nová navigace) ->             "screenTime" to MainActivity.getDailyScreenTime(this)
         )
 
         functions.getHttpsCallable("updateLocation")

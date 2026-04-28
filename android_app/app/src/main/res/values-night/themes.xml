@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.NearAura" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        </style>
+        <item name="android:windowBackground">@color/sovereign_background</item>
+        <item name="android:colorBackground">@color/sovereign_background</item>
+        <item name="colorSurface">@color/sovereign_background</item>
+
+        <item name="colorPrimary">@color/sovereign_cyan_400</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorAccent">@color/sovereign_orange_500</item>
+
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
 </resources>

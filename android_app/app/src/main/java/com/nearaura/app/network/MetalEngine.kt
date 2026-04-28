@@ -15,13 +15,10 @@ object MetalEngine {
         .continueWith { task ->
             if (!task.isSuccessful) {
                 val e = task.exception
-                if (e is FirebaseFunctionsException) {
-                    println("Chyba v mašině Mahdal: ${e.code}, ${e.message}")
-                }
+                println("Chyba v mašině Mahdal: ${e?.message}")
                 null
             } else {
-                // 🏗️ TADY JE TA OPRAVA: Použijeme explicitní getData() 
-                // místo toho, abychom na to sahali napřímo jako na private pole.
+                // Poctivá ocel - vytáhneme to přes getData()
                 task.result?.getData()
             }
         }
