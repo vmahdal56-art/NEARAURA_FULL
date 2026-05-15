@@ -25,6 +25,9 @@ android {
 }
 
 dependencies {
+ // --- 🛡️ MAHDAL METAL: TVRDÉ ZÁMKY PROTI ACONFIG CRASHI ---
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.activity:activity-ktx:1.8.2")
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.firebase:geofire-android-common:3.2.0")

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@android:color/black">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tvoje Aura Propustka pro Web:"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:id="@+id/codeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nahrávám..."
+        android:textColor="#FFD700"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zadej tento kód na webu do 5 minut."
+        android:textColor="#AAAAAA"
+        android:textSize="14sp"
+        android:layout_marginTop="32dp"/>
+
+</LinearLayout>

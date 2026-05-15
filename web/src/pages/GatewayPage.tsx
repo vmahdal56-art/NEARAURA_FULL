@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Pause, Lock, Activity, Heart, Clock, Mic, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
 
+// FIREBASE IMPORTY - Doplň správnou cestu k tvé inicializaci
+import { getFunctions, httpsCallable } from 'firebase/functions';
+import { getAuth, signInWithCustomToken } from 'firebase/auth';
+import { app } from '../services/firebase'; // <-- Uprav podle tvé struktury
+
 // IMPORT DAT
 import { ANTHEMS, LYRICS_DATA } from '../data/anthems';
 import { useLanguage } from '../context/LanguageContext';
@@ -85,8 +90,17 @@ const GatewayPage = () => {
   const [activeAnthem, setActiveAnthem] = useState<keyof typeof ANTHEMS | null>(null);
   const [bassPulse, setBassPulse] = useState(0);
   
-  // MOBILNÍ STAV PRO ŠIPKY (0 = Left, 1 = Center, 2 = Right)
+  // MOBILNÍ STAV PRO ŠIPKY
   const [mobileIndex, setMobileIndex] = useState(0);
+
+  // 🛡️ MAHDAL METAL STAV PRO LOGIN BRÁNU
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [accessCode, setAccessCode] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  // INICIALIZACE FIREBASE
+  const auth = getAuth(app);
+  const functions = getFunctions(app);
 
   useEffect(() => {
     let pulseInterval: any;
@@ -98,13 +112,11 @@ const GatewayPage = () => {
     return () => clearInterval(pulseInterval);
   }, [activeAnthem]);
 
-  // FUNKCE PRO PLAY (STOP PROPAGATION JE KLÍČ)
   const handlePlayClick = (key: keyof typeof ANTHEMS, e: React.MouseEvent) => {
     e.stopPropagation();
     setActiveAnthem(activeAnthem === key ? null : key);
   };
 
-  // FUNKCE PRO MOBILNÍ ŠIPKY
   const handlePrevMobile = (e: React.MouseEvent) => {
     e.stopPropagation();
     setMobileIndex(prev => (prev === 0 ? 2 : prev - 1));
@@ -113,6 +125,35 @@ const GatewayPage = () => {
   const handleNextMobile = (e: React.MouseEvent) => {
     e.stopPropagation();
     setMobileIndex(prev => (prev === 2 ? 0 : prev + 1));
+  };
+
+  // 🛡️ MAHDAL METAL: ZPRACOVÁNÍ KÓDU
+  const handleWebLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+
+    if (accessCode.length !== 6) {
+        setLoginError("Zadej 6-místný kód z Aura Auth aplikace.");
+        return;
+    }
+
+    try {
+        const verifyWebAccessCode = httpsCallable(functions, 'verifyWebAccessCode');
+        const result = await verifyWebAccessCode({ code: accessCode });
+        
+        const data = result.data as any;
+        const customToken = data.token;
+        
+        // Přihlásíme webovou instanci pomocí Custom Tokenu
+        await signInWithCustomToken(auth, customToken);
+        
+        // Vstup do Orchardu povolený!
+        setShowLoginModal(false);
+        navigate('/orchard');
+    } catch (error) {
+        console.error("Gateway error:", error);
+        setLoginError("Neplatný kód. Skontroluj svoju Auru v appke.");
+    }
   };
 
   const getLyrics = (key: string, langCode: string) => {
@@ -138,11 +179,44 @@ const GatewayPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans flex flex-col items-center overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white font-sans flex flex-col items-center overflow-x-hidden relative">
       <style>{`
         @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
         .will-change-transform { will-change: transform; }
       `}</style>
+
+      {/* 🛡️ MAHDAL METAL: LOGIN MODAL OVERLAY */}
+      {showLoginModal && (
+        <div className="absolute inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md">
+           <Shield size={64} className="text-[#FFD700] mb-6" />
+           <h2 className="text-3xl font-black text-white uppercase tracking-widest mb-2">AURA VERIFICATION</h2>
+           <p className="text-zinc-400 mb-8 font-mono text-center text-sm uppercase tracking-widest">Zadej kód vygenerovaný v mobilní aplikaci</p>
+           
+           <form onSubmit={handleWebLogin} className="flex flex-col gap-4 items-center">
+              <input 
+                 type="text"
+                 maxLength={6}
+                 value={accessCode}
+                 onChange={(e) => setAccessCode(e.target.value)}
+                 placeholder="------"
+                 className="bg-transparent border-b-2 border-[#FFD700] text-[#FFD700] text-center text-5xl font-mono tracking-[0.3em] w-72 outline-none focus:border-white transition-colors"
+                 autoFocus
+              />
+              <button type="submit" className="mt-8 px-10 py-4 bg-[#FFD700] text-black font-black uppercase tracking-widest hover:bg-white hover:scale-105 transition-all">
+                 VERIFY & ENTER
+              </button>
+           </form>
+           
+           {loginError && <p className="text-red-500 mt-6 font-mono uppercase tracking-widest text-sm">{loginError}</p>}
+           
+           <button 
+             onClick={() => setShowLoginModal(false)} 
+             className="mt-16 text-zinc-600 hover:text-white uppercase font-black tracking-widest text-xs transition-colors"
+           >
+             CANCEL
+           </button>
+        </div>
+      )}
 
       {/* YT ENGINE */}
       <div className="absolute top-0 left-0 w-0 h-0 opacity-0 pointer-events-none">
@@ -162,7 +236,7 @@ const GatewayPage = () => {
              
              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-full md:w-auto text-center hidden md:block">
                 <div className="flex items-center justify-center gap-6 bg-black/90 px-8 py-3 rounded-full border border-zinc-800/80 backdrop-blur-md shadow-2xl">
-                    <div onClick={() => navigate('/orchard')} className="cursor-pointer text-xs font-black text-[#FFD700] hover:text-white hover:scale-110 transition-all tracking-widest uppercase drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">{txt?.orchard || 'ORCHARD'}</div>
+                    <div onClick={() => setShowLoginModal(true)} className="cursor-pointer text-xs font-black text-[#FFD700] hover:text-white hover:scale-110 transition-all tracking-widest uppercase drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">{txt?.orchard || 'ORCHARD'}</div>
                     <div onClick={() => navigate('/help')} className="cursor-pointer text-xs font-black text-[#10b981] hover:text-white hover:scale-110 transition-all tracking-widest uppercase drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]">{txt?.help || 'HELP'}</div>
                     <div onClick={() => navigate('/roots')} className="cursor-pointer text-xs font-black text-[#22D3EE] hover:text-white hover:scale-110 transition-all tracking-widest uppercase drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]">{txt?.roots || 'ROOTS'}</div>
                     <div className="w-px h-4 bg-zinc-700 mx-2"></div>
@@ -177,7 +251,7 @@ const GatewayPage = () => {
          {/* MAIN WINDOWS */}
          <main className="flex-grow w-full flex relative h-[75vh]">
             
-            {/* MOBILNÍ ŠIPKY (Zobrazí se jen na mobilu, absolutní z-100) */}
+            {/* MOBILNÍ ŠIPKY */}
             <button onClick={handlePrevMobile} className="lg:hidden absolute left-4 top-1/2 -translate-y-1/2 z-[100] text-zinc-500 hover:text-white bg-black/80 border border-zinc-700 p-3 rounded-full shadow-2xl backdrop-blur-md">
               <ChevronLeft size={32} />
             </button>
@@ -185,10 +259,10 @@ const GatewayPage = () => {
               <ChevronRight size={32} />
             </button>
 
-            {/* LEFT (ENTER ORCHARD) */}
+            {/* LEFT (ENTER ORCHARD - Otevírá bránu) */}
             <div 
               className={`relative ${mobileIndex === 0 ? 'flex' : 'hidden'} lg:flex w-full lg:w-1/3 flex-col items-center justify-center border-r border-zinc-900 bg-black overflow-hidden group cursor-pointer transition-all duration-500`} 
-              onClick={() => navigate('/orchard')} 
+              onClick={() => setShowLoginModal(true)} 
               style={getGlowStyle('left')}
             >
               {activeAnthem && activeAnthem !== 'left' && <ScrollingLyrics sourceKey={activeAnthem} lang="CZ" delay={ANTHEMS.left?.vocalDelay} textArray={getLyrics(activeAnthem, 'cz')} />}

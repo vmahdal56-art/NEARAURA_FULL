@@ -1,8 +1,17 @@
-const { onCall, HttpsError } = require("firebase-functions/v2/https");
-const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+// --- 🛡️ MAHDAL METAL: ABSOLUTNÍ START ---
 const admin = require("firebase-admin");
 
-if (!admin.apps.length) { admin.initializeApp(); }
+// V2 Importy pro HTTPS a Firestore
+const { onCall, HttpsError } = require("firebase-functions/v2/https");
+const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+
+// V1 Importy explicitně pro Auth Triggers
+const functionsV1 = require('firebase-functions/v1'); 
+
+// Bezpečná inicializace - pouze jednou!
+if (!admin.apps.length) { 
+    admin.initializeApp(); 
+}
 const db = admin.firestore();
 
 const CORE_TEAM = ["JV", "JM", "PM", "LA", "LH", "YM", "VM"];
@@ -14,7 +23,7 @@ const checkAuth = (req) => {
     return req.auth.uid;
 };
 
-// --- 🔱 BLOK 1: IDENTITA A VSTUP (5 funkcí) ---
+// --- 🔱 BLOK 1: IDENTITA A VSTUP ---
 exports.onUserCreated = onDocumentCreated("users/{uid}", async (e) => {
     const statsRef = db.collection('stats').doc('launch');
     return db.runTransaction(async (t) => {
@@ -43,7 +52,7 @@ exports.deleteAccount = onCall(async (req) => {
     return { message: "Účet roztaven." };
 });
 
-// --- 🛰️ BLOK 2: RADAR A HARDWARE (5 funkcí) ---
+// --- 🛰️ BLOK 2: RADAR A HARDWARE ---
 exports.updateLocation = onCall(async (req) => {
     const uid = checkAuth(req);
     const { lat, lng, hwId } = req.data;
@@ -73,7 +82,7 @@ exports.reportHardwareIssue = onCall(async (req) => {
     return { ok: true };
 });
 
-// --- 🍎 BLOK 3: ZÁMĚRY A PLODY (5 funkcí) ---
+// --- 🍎 BLOK 3: ZÁMĚRY A PLODY ---
 exports.updateIntent = onCall(async (req) => {
     const uid = checkAuth(req);
     const fruits = req.data.fruits || [];
@@ -104,7 +113,7 @@ exports.setAuraColor = onCall(async (req) => {
     return { ok: true };
 });
 
-// --- 🤝 BLOK 4: MEETUPY (5 funkcí) ---
+// --- 🤝 BLOK 4: MEETUPY ---
 exports.createMeetup = onCall(async (req) => {
     const r = await db.collection("meetups").add({ creator: checkAuth(req), ...req.data, participants: [checkAuth(req)], createdAt: admin.firestore.FieldValue.serverTimestamp() });
     return { id: r.id };
@@ -127,7 +136,7 @@ exports.getNearbyMeetups = onCall(async (req) => {
     return s.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 });
 
-// --- 💬 BLOK 5: KOMUNIKACE (5 funkcí) ---
+// --- 💬 BLOK 5: KOMUNIKACE ---
 exports.sendBroadcast = onCall(async (req) => {
     await db.collection("broadcasts").add({ sender: checkAuth(req), msg: req.data.msg, time: admin.firestore.FieldValue.serverTimestamp() });
     return { ok: true };
@@ -149,7 +158,7 @@ exports.getChatList = onCall(async (req) => {
     return s.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 });
 
-// --- 💰 BLOK 6: LEDGER A TITHE (5 funkcí) ---
+// --- 💰 BLOK 6: LEDGER A TITHE ---
 exports.verifyTithe = onCall(async (req) => {
     const uid = checkAuth(req);
     await db.collection("ledger").add({ uid, amount: req.data.amount, type: "TITHE", timestamp: admin.firestore.FieldValue.serverTimestamp() });
@@ -177,10 +186,9 @@ exports.sysJanitor = onCall(async (req) => {
     return { cleaned: old.size };
 });
 
-// --- 🛠️ BLOK 7: FINÁLNÍ DOPLŇKY (Várka 4 - 4 funkce) ---
+// --- 🛠️ BLOK 7: FINÁLNÍ DOPLŇKY ---
 exports.recalculateSoulScore = onCall(async (req) => {
     const uid = checkAuth(req);
-    // Logika pro přepočet podle historie aktivit
     await db.collection("users").doc(uid).update({ soulScore: 100 });
     return { status: "Soul Score resetováno na 100." };
 });
@@ -195,4 +203,106 @@ exports.getBlacklistStatus = onCall(async (req) => {
 exports.updateHardwareId = onCall(async (req) => {
     await db.collection("users").doc(checkAuth(req)).update({ hardwareId: req.data.newHwId });
     return { ok: true };
+});
+
+// ============================================================================
+// 🛡️ MAHDAL METAL: AURA GATEKEEPER & SOUL SCANNER
+// ============================================================================
+
+// 1. Založení štítku při registraci
+// Používáme přesný path pro Firebase Functions v1 Auth
+exports.onUserAuthSignup = functionsV1.auth.user().onCreate((user) => {
+    return admin.firestore().collection('Users').doc(user.uid).set({
+        email: user.email || null,
+        phone: user.phoneNumber || null,
+        bioFilled: false,
+        soulScanPassed: false,
+        isBlocked: false,
+        blockedUntil: 0,
+        auraStatus: 'PENDING',
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+    }, { merge: true }).then(() => {
+        console.log(`[SOUL_FORGE] Nový uživatel ${user.uid} nahozen. Čeká na BIO a Sken.`);
+    });
+});
+
+// 2. Tvrdý zámek na 7 dní, pokud skener selže
+exports.lockFakeSoul = onCall(async (req) => {
+    const uid = checkAuth(req);
+    const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+    const unlockTime = Date.now() + sevenDaysInMillis;
+
+    await db.collection('Users').doc(uid).update({
+        isBlocked: true,
+        blockedUntil: unlockTime,
+        auraStatus: 'FAILED_100_YEARS_SCAN'
+    });
+
+    await admin.auth().revokeRefreshTokens(uid);
+    console.log(`[SOUL_FORGE] Zmetek ${uid} zablokován na 7 dní.`);
+    return { status: "LOCKED" };
+});
+
+// 3. Výhybka při loginu (Gatekeeper)
+exports.checkAuraGate = onCall(async (req) => {
+    const uid = checkAuth(req);
+    const doc = await db.collection('Users').doc(uid).get();
+    
+    if (!doc.exists) return { action: "GO_TO_BIO" };
+
+    const userData = doc.data();
+    const currentTime = Date.now();
+
+    if (userData.isBlocked) {
+        if (currentTime < userData.blockedUntil) {
+            await admin.auth().revokeRefreshTokens(uid);
+            return { action: "KICK_OUT" };
+        } else {
+            await db.collection('Users').doc(uid).update({ isBlocked: false, blockedUntil: 0 });
+            return { action: "GO_TO_SCANNER" };
+        }
+    }
+    
+    if (!userData.bioFilled) return { action: "GO_TO_BIO" };
+    if (!userData.soulScanPassed) return { action: "GO_TO_SCANNER" };
+
+    return { action: "GO_TO_ORCHARD" };
+});
+
+// ============================================================================
+// 🛡️ MAHDAL METAL: WEB ACCESS SYSTEM
+// ============================================================================
+
+// 1. MOBIL vygeneruje kód po úspěšném scane
+exports.generateWebAccessCode = onCall(async (req) => {
+    const uid = checkAuth(req);
+    const userDoc = await db.collection('Users').doc(uid).get();
+    
+    if (userDoc.exists && userDoc.data().isBlocked) return { error: "LOCKED" };
+
+    const accessCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await db.collection('WebLogins').doc(accessCode).set({
+        uid: uid,
+        expiresAt: Date.now() + (5 * 60 * 1000)
+    });
+
+    console.log(`[AURA_AUTH] Kód ${accessCode} vygenerovaný pre ${uid}`);
+    return { code: accessCode };
+});
+
+// 2. WEB si ověří kód a dostane token
+exports.verifyWebAccessCode = onCall(async (req) => {
+    const code = req.data.code;
+    const loginDoc = await db.collection('WebLogins').doc(code).get();
+
+    if (!loginDoc.exists || loginDoc.data().expiresAt < Date.now()) {
+        throw new HttpsError('invalid-argument', 'Kód vypršal alebo neexistuje.');
+    }
+
+    const uid = loginDoc.data().uid;
+    
+    await db.collection('WebLogins').doc(code).delete();
+    const customToken = await admin.auth().createCustomToken(uid);
+    return { token: customToken };
 });
